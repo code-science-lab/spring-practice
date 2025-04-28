@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>WebSocket Demo</title>
+  </head>
+  <body>
+    <h1>WebSocket Demo</h1>
+    <div id="wsResult"></div>
+
+    <script>
+      const socket = new WebSocket("ws://localhost:8080/websocket-endpoint");
+      socket.onmessage = function (event) {
+        const newElement = document.createElement("div");
+        newElement.textContent = event.data;
+        document.getElementById("wsResult").appendChild(newElement);
+      };
+    </script>
+  </body>
+</html>

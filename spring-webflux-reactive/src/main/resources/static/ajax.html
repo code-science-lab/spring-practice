@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Spring WebFlux Demo</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <h1>Spring WebFlux Demo</h1>
+    <button id="monoButton">Get Mono</button>
+    <button id="fluxButton">Get Flux</button>
+    <div id="monoResult"></div>
+    <div id="fluxResult"></div>
+
+    <script>
+      $("#monoButton").click(function () {
+        $.ajax({
+          url: "http://localhost:8080/mono",
+          success: function (data) {
+            $("#monoResult").text(data);
+          },
+        });
+      });
+
+      $("#fluxButton").click(function () {
+        $.ajax({
+          url: "http://localhost:8080/flux",
+          success: function (data) {
+            $("#fluxResult").text(data);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

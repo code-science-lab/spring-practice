@@ -17,6 +17,7 @@
         <module>spring-bean-lifecycle</module>
         <module>spring-mvc-basic</module>
         <module>spring-rest-api</module>
+        <module>spring-webflux-reactive</module>
     </modules>
 
     <properties>
