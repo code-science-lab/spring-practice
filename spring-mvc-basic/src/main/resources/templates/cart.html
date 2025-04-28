@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>购物车</title>
+  </head>
+  <body>
+    <h1>购物车</h1>
+    <ul>
+      <li th:each="entry : ${cart}">
+        <span th:text="${entry.key}"></span>:
+        <span th:text="${entry.value}"></span>
+      </li>
+    </ul>
+    <a href="/products">返回商品列表</a>
+  </body>
+</html>
