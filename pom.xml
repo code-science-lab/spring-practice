@@ -18,6 +18,11 @@
         <module>spring-mvc-basic</module>
         <module>spring-rest-api</module>
         <module>spring-webflux-reactive</module>
+        <module>spring-data-jpa</module>
+        <module>spring-data-jdbc</module>
+        <module>spring-data-mybatis</module>
+        <module>spring-data-mongo</module>
+        <module>spring-data-redis</module>
     </modules>
 
     <properties>
