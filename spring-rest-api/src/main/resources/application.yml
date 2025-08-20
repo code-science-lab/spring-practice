@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: spring-rest-api
+
+# SpringDoc OpenAPI 配置
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    doc-expansion: none
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json
+
+# 日志配置
+logging:
+  level:
+    io.codescience: DEBUG
+    org.springframework.web: DEBUG

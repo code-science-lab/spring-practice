@@ -1,0 +1,283 @@
+openapi: 3.0.3
+info:
+  title: Spring REST API - 用户管理服务
+  description: |
+    这是一个基于Spring Boot的REST API服务，提供用户管理功能。
+    包括用户的增删改查操作。
+  version: 1.0.0
+  contact:
+    name: CodeScience
+    email: contact@codescience.io
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:8080
+    description: 开发环境服务器
+  - url: https://api.codescience.io
+    description: 生产环境服务器
+
+paths:
+  /api/users:
+    get:
+      summary: 获取所有用户
+      description: 返回系统中所有用户的列表
+      operationId: getAllUsers
+      tags:
+        - 用户管理
+      responses:
+        "200":
+          description: 成功获取用户列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+              example:
+                - id: "1"
+                  name: "张三"
+                  email: "zhangsan@example.com"
+                - id: "2"
+                  name: "李四"
+                  email: "lisi@example.com"
+        "500":
+          description: 服务器内部错误
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    post:
+      summary: 创建新用户
+      description: 创建一个新的用户
+      operationId: createUser
+      tags:
+        - 用户管理
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              name: "王五"
+              email: "wangwu@example.com"
+      responses:
+        "201":
+          description: 用户创建成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                id: "3"
+                name: "王五"
+                email: "wangwu@example.com"
+        "400":
+          description: 请求参数错误
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: 服务器内部错误
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/users/{id}:
+    get:
+      summary: 根据ID获取用户
+      description: 根据用户ID获取特定用户的详细信息
+      operationId: getUserById
+      tags:
+        - 用户管理
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 用户ID
+          schema:
+            type: string
+          example: "1"
+      responses:
+        "200":
+          description: 成功获取用户信息
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                id: "1"
+                name: "张三"
+                email: "zhangsan@example.com"
+        "404":
+          description: 用户不存在
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: 服务器内部错误
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    put:
+      summary: 更新用户信息
+      description: 根据用户ID更新用户信息
+      operationId: updateUser
+      tags:
+        - 用户管理
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 用户ID
+          schema:
+            type: string
+          example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              name: "张三（已更新）"
+              email: "zhangsan.updated@example.com"
+      responses:
+        "200":
+          description: 用户信息更新成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                id: "1"
+                name: "张三（已更新）"
+                email: "zhangsan.updated@example.com"
+        "404":
+          description: 用户不存在
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+          description: 请求参数错误
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: 服务器内部错误
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    delete:
+      summary: 删除用户
+      description: 根据用户ID删除用户
+      operationId: deleteUser
+      tags:
+        - 用户管理
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 用户ID
+          schema:
+            type: string
+          example: "1"
+      responses:
+        "204":
+          description: 用户删除成功
+        "404":
+          description: 用户不存在
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: 服务器内部错误
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    User:
+      type: object
+      description: 用户信息模型
+      properties:
+        id:
+          type: string
+          description: 用户唯一标识符
+          example: "1"
+        name:
+          type: string
+          description: 用户姓名
+          example: "张三"
+          minLength: 1
+          maxLength: 100
+        email:
+          type: string
+          description: 用户邮箱地址
+          format: email
+          example: "zhangsan@example.com"
+      required:
+        - name
+        - email
+      example:
+        id: "1"
+        name: "张三"
+        email: "zhangsan@example.com"
+
+    Error:
+      type: object
+      description: 错误响应模型
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: 错误发生时间
+          example: "2024-01-15T10:30:00Z"
+        status:
+          type: integer
+          description: HTTP状态码
+          example: 404
+        error:
+          type: string
+          description: 错误类型
+          example: "Not Found"
+        message:
+          type: string
+          description: 错误详细信息
+          example: "用户不存在"
+        path:
+          type: string
+          description: 请求路径
+          example: "/api/users/999"
+      required:
+        - timestamp
+        - status
+        - error
+        - message
+        - path
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT认证令牌
+
+tags:
+  - name: 用户管理
+    description: 用户相关的所有操作，包括创建、查询、更新和删除用户
