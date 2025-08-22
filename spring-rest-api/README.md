@@ -5,6 +5,7 @@
 ## 功能特性
 
 - 用户 CRUD 操作（创建、读取、更新、删除）
+- **参数获取方式演示**（12 种不同的参数绑定方式）
 - OpenAPI 3.0 规范文档
 - Swagger UI 界面
 - RESTful API 设计
@@ -20,6 +21,30 @@
 | POST   | `/api/users`      | 创建新用户       |
 | PUT    | `/api/users/{id}` | 更新用户信息     |
 | DELETE | `/api/users/{id}` | 删除用户         |
+
+### 参数演示
+
+| 方法 | 端点                                      | 描述             |
+| ---- | ----------------------------------------- | ---------------- |
+| GET  | `/api/demo/path/{id}/category/{category}` | 路径变量演示     |
+| GET  | `/api/demo/query`                         | 查询参数演示     |
+| POST | `/api/demo/body`                          | 请求体演示       |
+| GET  | `/api/demo/headers`                       | 请求头演示       |
+| GET  | `/api/demo/cookies`                       | Cookie 演示      |
+| GET  | `/api/demo/attributes`                    | 请求属性演示     |
+| POST | `/api/demo/multipart`                     | 多部分请求演示   |
+| POST | `/api/demo/model`                         | 模型属性演示     |
+| GET  | `/api/demo/request`                       | 原始请求对象演示 |
+| GET  | `/api/demo/params-map`                    | 参数映射演示     |
+| POST | `/api/demo/mixed/{userId}`                | 混合参数演示     |
+| POST | `/api/demo/set-cookie`                    | 设置 Cookie 演示 |
+
+**详细说明请查看：** [参数演示说明文档](PARAMETER_DEMO_README.md)
+
+**API 测试文件：**
+
+- [Postman 集合文件](ParameterDemoController.postman_collection.json) - 可直接导入 Postman
+- [curl 命令文件](curl-commands.txt) - 包含所有 API 调用的 curl 命令
 
 ## 用户模型
 
@@ -171,8 +196,13 @@ spring-rest-api/
    - 检查`OpenApiConfig.java`配置
 
 3. **编译错误**
+
    - 确保 Java 版本为 17+
    - 运行`mvn clean compile`重新编译
+
+4. **路径映射冲突**
+   - 已解决：删除了重复的`UserDemoController`
+   - 确保每个 API 端点路径唯一
 
 ## 许可证
 

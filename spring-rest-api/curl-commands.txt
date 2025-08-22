@@ -1,0 +1,89 @@
+# Spring Rest API 参数演示控制器 - curl命令集合
+# 使用方法：复制对应的命令到终端执行
+
+# 1. 路径变量演示 - @PathVariable
+curl -X GET "http://localhost:8080/api/demo/path/123/category/electronics"
+
+# 2. 查询参数演示 - @RequestParam
+curl -X GET "http://localhost:8080/api/demo/query?name=张三&age=25&hobbies=读书&hobbies=游泳&active=true"
+
+# 3. 请求体演示 - @RequestBody
+curl -X POST "http://localhost:8080/api/demo/body" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "张三",
+    "email": "zhangsan@example.com",
+    "age": 25,
+    "city": "北京",
+    "hobbies": ["读书", "游泳", "编程"]
+  }'
+
+# 4. 请求头演示 - @RequestHeader
+curl -X GET "http://localhost:8080/api/demo/headers" \
+  -H "User-Agent: MyApp/1.0" \
+  -H "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8" \
+  -H "Authorization: Bearer token123" \
+  -H "X-Custom-Header: custom-value"
+
+# 5. Cookie演示 - @CookieValue
+curl -X GET "http://localhost:8080/api/demo/cookies" \
+  -H "Cookie: sessionId=abc123; theme=dark; preferences=compact; userId=456"
+
+# 6. 请求属性演示 - @RequestAttribute
+curl -X GET "http://localhost:8080/api/demo/attributes"
+
+# 7. 多部分请求演示 - @RequestPart
+curl -X POST "http://localhost:8080/api/demo/multipart" \
+  -F "file=@test.txt" \
+  -F 'metadata={"description":"测试文件","tags":["demo","test"],"category":"document"}'
+
+# 8. 模型属性演示 - @ModelAttribute
+curl -X POST "http://localhost:8080/api/demo/model" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "name=张三&age=25&email=zhangsan@example.com&city=北京"
+
+# 9. 原始请求对象演示 - HttpServletRequest
+curl -X GET "http://localhost:8080/api/demo/request?param1=value1&param2=value2&param3=value3" \
+  -H "X-Custom-Header: custom-value"
+
+# 10. 参数映射演示 - @RequestParam Map
+curl -X GET "http://localhost:8080/api/demo/params-map?name=张三&age=25&city=北京&hobby=读书&hobby=游泳&active=true&role=admin"
+
+# 11. 混合参数演示
+curl -X POST "http://localhost:8080/api/demo/mixed/123?action=update&priority=high&notify=true" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer token123" \
+  -H "X-Request-ID: req-12345" \
+  -H "Cookie: sessionId=abc123" \
+  -d '{
+    "name": "张三",
+    "email": "zhangsan@example.com",
+    "age": 25,
+    "department": "技术部",
+    "skills": ["Java", "Spring", "MySQL"]
+  }'
+
+# 12. 设置Cookie演示
+curl -X POST "http://localhost:8080/api/demo/set-cookie?name=theme&value=dark" \
+  -c cookies.txt
+
+# 测试Cookie设置效果（需要先执行上面的设置Cookie命令）
+curl -X GET "http://localhost:8080/api/demo/cookies" \
+  -b cookies.txt
+
+# 批量测试所有GET请求
+echo "=== 测试所有GET请求 ==="
+curl -X GET "http://localhost:8080/api/demo/path/123/category/electronics"
+echo -e "\n---"
+curl -X GET "http://localhost:8080/api/demo/query?name=张三&age=25"
+echo -e "\n---"
+curl -X GET "http://localhost:8080/api/demo/headers" -H "User-Agent: TestApp"
+echo -e "\n---"
+curl -X GET "http://localhost:8080/api/demo/cookies" -H "Cookie: sessionId=test123"
+echo -e "\n---"
+curl -X GET "http://localhost:8080/api/demo/attributes"
+echo -e "\n---"
+curl -X GET "http://localhost:8080/api/demo/request?test=value"
+echo -e "\n---"
+curl -X GET "http://localhost:8080/api/demo/params-map?param1=value1&param2=value2"
+echo -e "\n=== GET请求测试完成 ==="

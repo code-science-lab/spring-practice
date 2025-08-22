@@ -1,0 +1,20 @@
+这是一个测试文件，用于演示Spring Rest API的文件上传功能。
+
+文件内容：
+- 文件名：test.txt
+- 创建时间：2024年
+- 用途：演示@RequestPart注解的使用
+
+Spring Rest API支持多种参数获取方式：
+1. @PathVariable - 路径变量
+2. @RequestParam - 查询参数
+3. @RequestBody - 请求体
+4. @RequestHeader - 请求头
+5. @CookieValue - Cookie值
+6. @RequestAttribute - 请求属性
+7. @RequestPart - 多部分请求
+8. @ModelAttribute - 模型属性
+9. HttpServletRequest - 原始请求对象
+10. @RequestParam Map - 参数映射
+
+这个文件将用于测试文件上传功能。

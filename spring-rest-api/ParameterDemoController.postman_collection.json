@@ -1,0 +1,426 @@
+{
+  "info": {
+    "_postman_id": "spring-rest-api-parameter-demo",
+    "name": "Spring Rest API - 参数演示控制器",
+    "description": "演示Spring Rest API中所有的参数获取方式，包含12个不同的API端点",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. 路径变量演示 - @PathVariable",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/demo/path/123/category/electronics",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "path", "123", "category", "electronics"]
+        },
+        "description": "演示@PathVariable的使用，从URL路径中提取参数值"
+      },
+      "response": []
+    },
+    {
+      "name": "2. 查询参数演示 - @RequestParam",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/demo/query?name=张三&age=25&hobbies=读书&hobbies=游泳&active=true",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "query"],
+          "query": [
+            {
+              "key": "name",
+              "value": "张三",
+              "description": "用户姓名"
+            },
+            {
+              "key": "age",
+              "value": "25",
+              "description": "用户年龄"
+            },
+            {
+              "key": "hobbies",
+              "value": "读书",
+              "description": "用户爱好（可重复）"
+            },
+            {
+              "key": "hobbies",
+              "value": "游泳",
+              "description": "用户爱好（可重复）"
+            },
+            {
+              "key": "active",
+              "value": "true",
+              "description": "是否激活"
+            }
+          ]
+        },
+        "description": "演示@RequestParam的使用，从URL查询字符串中提取参数"
+      },
+      "response": []
+    },
+    {
+      "name": "3. 请求体演示 - @RequestBody",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"张三\",\n  \"email\": \"zhangsan@example.com\",\n  \"age\": 25,\n  \"city\": \"北京\",\n  \"hobbies\": [\"读书\", \"游泳\", \"编程\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/demo/body",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "body"]
+        },
+        "description": "演示@RequestBody的使用，从HTTP请求体中提取JSON数据"
+      },
+      "response": []
+    },
+    {
+      "name": "4. 请求头演示 - @RequestHeader",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "User-Agent",
+            "value": "MyApp/1.0",
+            "description": "用户代理"
+          },
+          {
+            "key": "Accept-Language",
+            "value": "zh-CN,zh;q=0.9,en;q=0.8",
+            "description": "接受语言"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer token123",
+            "description": "授权令牌"
+          },
+          {
+            "key": "X-Custom-Header",
+            "value": "custom-value",
+            "description": "自定义请求头"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/demo/headers",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "headers"]
+        },
+        "description": "演示@RequestHeader的使用，从HTTP请求头中提取参数"
+      },
+      "response": []
+    },
+    {
+      "name": "5. Cookie演示 - @CookieValue",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "sessionId=abc123; theme=dark; preferences=compact; userId=456",
+            "description": "Cookie字符串"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/demo/cookies",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "cookies"]
+        },
+        "description": "演示@CookieValue的使用，从HTTP Cookie中提取参数"
+      },
+      "response": []
+    },
+    {
+      "name": "6. 请求属性演示 - @RequestAttribute",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/demo/attributes",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "attributes"]
+        },
+        "description": "演示@RequestAttribute的使用，从请求属性中获取值（需要拦截器预先设置）"
+      },
+      "response": []
+    },
+    {
+      "name": "7. 多部分请求演示 - @RequestPart",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": [],
+              "description": "上传文件"
+            },
+            {
+              "key": "metadata",
+              "value": "{\"description\":\"测试文件\",\"tags\":[\"demo\",\"test\"],\"category\":\"document\"}",
+              "description": "文件元数据（JSON格式）"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/demo/multipart",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "multipart"]
+        },
+        "description": "演示@RequestPart的使用，处理multipart/form-data请求"
+      },
+      "response": []
+    },
+    {
+      "name": "8. 模型属性演示 - @ModelAttribute",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "张三",
+              "description": "用户姓名"
+            },
+            {
+              "key": "age",
+              "value": "25",
+              "description": "用户年龄"
+            },
+            {
+              "key": "email",
+              "value": "zhangsan@example.com",
+              "description": "用户邮箱"
+            },
+            {
+              "key": "city",
+              "value": "北京",
+              "description": "用户城市"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/demo/model",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "model"]
+        },
+        "description": "演示@ModelAttribute的使用，绑定表单数据到对象"
+      },
+      "response": []
+    },
+    {
+      "name": "9. 原始请求对象演示 - HttpServletRequest",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Custom-Header",
+            "value": "custom-value"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/demo/request?param1=value1&param2=value2&param3=value3",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "request"],
+          "query": [
+            {
+              "key": "param1",
+              "value": "value1"
+            },
+            {
+              "key": "param2",
+              "value": "value2"
+            },
+            {
+              "key": "param3",
+              "value": "value3"
+            }
+          ]
+        },
+        "description": "演示HttpServletRequest的使用，获取完整的HTTP请求信息"
+      },
+      "response": []
+    },
+    {
+      "name": "10. 参数映射演示 - @RequestParam Map",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/demo/params-map?name=张三&age=25&city=北京&hobby=读书&hobby=游泳&active=true&role=admin",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "params-map"],
+          "query": [
+            {
+              "key": "name",
+              "value": "张三"
+            },
+            {
+              "key": "age",
+              "value": "25"
+            },
+            {
+              "key": "city",
+              "value": "北京"
+            },
+            {
+              "key": "hobby",
+              "value": "读书"
+            },
+            {
+              "key": "hobby",
+              "value": "游泳"
+            },
+            {
+              "key": "active",
+              "value": "true"
+            },
+            {
+              "key": "role",
+              "value": "admin"
+            }
+          ]
+        },
+        "description": "演示@RequestParam Map的使用，获取所有查询参数为Map"
+      },
+      "response": []
+    },
+    {
+      "name": "11. 混合参数演示",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer token123"
+          },
+          {
+            "key": "X-Request-ID",
+            "value": "req-12345"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"张三\",\n  \"email\": \"zhangsan@example.com\",\n  \"age\": 25,\n  \"department\": \"技术部\",\n  \"skills\": [\"Java\", \"Spring\", \"MySQL\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/demo/mixed/123?action=update&priority=high&notify=true",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "mixed", "123"],
+          "query": [
+            {
+              "key": "action",
+              "value": "update"
+            },
+            {
+              "key": "priority",
+              "value": "high"
+            },
+            {
+              "key": "notify",
+              "value": "true"
+            }
+          ]
+        },
+        "description": "演示多种参数获取方式的组合使用：路径变量、查询参数、请求体、请求头、Cookie"
+      },
+      "response": []
+    },
+    {
+      "name": "12. 设置Cookie演示",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/demo/set-cookie?name=theme&value=dark",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "demo", "set-cookie"],
+          "query": [
+            {
+              "key": "name",
+              "value": "theme",
+              "description": "Cookie名称"
+            },
+            {
+              "key": "value",
+              "value": "dark",
+              "description": "Cookie值"
+            }
+          ]
+        },
+        "description": "演示如何设置Cookie，服务器会在响应中设置Cookie"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}
